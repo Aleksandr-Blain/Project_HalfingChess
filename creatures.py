@@ -50,7 +50,7 @@ class Necromancer(Villain):
 
         target.health = target.health // 2
 
-class Hero(Character):
+class Heroes(Character):
     def __init__(self):
         super().__init__(Player.HERO)
 
@@ -67,7 +67,7 @@ class Hero(Character):
         return super().deal_damage(target, damage, *args, **kwargs)
 
 
-class Warrior(Hero):
+class Warrior(Heroes):
     def __init__(self):
         super().__init__()
         self.health = 7
@@ -85,7 +85,7 @@ class Warrior(Hero):
                 gob = list([randint(1, 6), randint(1, 6)])
 
 
-class Mage(Hero):
+class Mage(Heroes):
     def __init__(self):
         super().__init__()
         self.combat = [2, 2]
@@ -97,7 +97,7 @@ class Mage(Hero):
         damage += 1
 
 
-class Paladin(Hero):
+class Paladin(Heroes):
     def __init__(self):
         super().__init__()
         self.__heal = bool
@@ -120,7 +120,7 @@ class Paladin(Hero):
         pass
 
 
-class Ranger(Hero):
+class Ranger(Heroes):
     pass
 
 
