@@ -50,7 +50,7 @@ class Necromancer(Villain):
 
         target.health = target.health // 2
 
-class Heroes(Character):
+class Hero(Character):
     def __init__(self):
         super().__init__(Player.HERO)
 
@@ -67,7 +67,7 @@ class Heroes(Character):
         return super().deal_damage(target, damage, *args, **kwargs)
 
 
-class Warrior(Heroes):
+class Warrior(Hero):
     def __init__(self):
         super().__init__()
         self.health = 7
@@ -85,7 +85,7 @@ class Warrior(Heroes):
                 gob = list([randint(1, 6), randint(1, 6)])
 
 
-class Mage(Heroes):
+class Mage(Hero):
     def __init__(self):
         super().__init__()
         self.combat = [2, 2]
@@ -97,7 +97,7 @@ class Mage(Heroes):
         damage += 1
 
 
-class Paladin(Heroes):
+class Paladin(Hero):
     def __init__(self):
         super().__init__()
         self.__heal = bool
@@ -115,10 +115,13 @@ class Paladin(Heroes):
 
     # TODO- How to check if something is in range or not
     def revive(self, target: Character):
-        if target
+
         target.temp_health -= self.health // 2
         pass
 
+
+class Ranger(Hero):
+    pass
 
 
 
