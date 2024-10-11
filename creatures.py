@@ -8,6 +8,8 @@ class Villain(Character):
     def is_valid_move(self, from_coord: Coord, to_coord: Coord, board: List[List[Union[None, Character]]]) -> bool:
         if from_coord.x != to_coord.x or from_coord.y != to_coord.y:
             return False
+        if board[to_coord.x][to_coord.y] is not None:
+            return False
         else:
             return super().is_valid_move(from_coord, to_coord, board)
 
@@ -24,33 +26,33 @@ class Villain(Character):
 class Goblin(Villain):
     def __init__(self):
         super().__init__()
-        self.health = 3
-        self.temp_health = 3
-        self.combat = [2, 2]
+        self.__health = 3
+        self.__temp_health = 3
+        self.__combat = [2, 2]
 
 
 class Skeleton(Villain):
     def __init__(self):
         super().__init__()
-        self.health = 2
-        self.temp_health = 2
-        self.combat = [2, 1]
-        self.move = 2
+        self.__health = 2
+        self.__temp_health = 2
+        self.__combat = [2, 1]
+        self.__move = 2
 
 
 class Necromancer(Villain):
     def __init__(self):
         super().__init__()
-        self.combat = [1, 2]
-        self.range = 3
+        self.__combat = [1, 2]
+        self.__range = 3
 
-    def raise_dead(target: Character):
+    def raise_dead(self,target: Character):
         if not Player.VILLAIN:
             target = Player.VILLAIN
 
-        target.health = target.health // 2
+        target.__health = target.__health // 2
 
-class Heroes(Character):
+class Hero(Character):
     def __init__(self):
         super().__init__(Player.HERO)
 
@@ -67,12 +69,12 @@ class Heroes(Character):
         return super().deal_damage(target, damage, *args, **kwargs)
 
 
-class Warrior(Heroes):
+class Warrior(Hero):
     def __init__(self):
         super().__init__()
-        self.health = 7
-        self.temp_health = 7
-        self.combat = [2, 4]
+        self.__health = 7
+        self.__temp_health = 7
+        self.__combat = [2, 4]
 
     def calculate_dice(self, target: Character, attack=True, lst: list = [], gob: list = []):
         if not isinstance(target, Goblin):
@@ -85,24 +87,24 @@ class Warrior(Heroes):
                 gob = list([randint(1, 6), randint(1, 6)])
 
 
-class Mage(Heroes):
+class Mage(Hero):
     def __init__(self):
         super().__init__()
-        self.combat = [2, 2]
-        self.range = 3
-        self.move = 2
+        self.__combat = [2, 2]
+        self.__range = 3
+        self.__move = 2
 
     def deal_damage(self, target: Character, damage: int, *args, **kwargs) -> None:
         super().deal_damage(target, damage, *args, **kwargs)
         damage += 1
 
 
-class Paladin(Heroes):
+class Paladin(Hero):
     def __init__(self):
         super().__init__()
         self.__heal = bool
-        self.health = 6
-        self.temp_health = 6
+        self.__health = 6
+        self.__temp_health = 6
 
     @property
     def heal(self):
@@ -120,7 +122,7 @@ class Paladin(Heroes):
         pass
 
 
-class Ranger(Heroes):
+class Ranger(Hero):
     pass
 
 

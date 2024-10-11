@@ -38,7 +38,7 @@ class Character(ABC):
 
     @player.setter
     def player(self, new_player):
-        self.__player = Player[new_player]
+        self.__player = new_player
 
     @property
     def health(self):
@@ -100,7 +100,7 @@ class Character(ABC):
         if to_coord.x == from_coord.x and to_coord.y == from_coord.y:
             return False
 
-        elif board[from_coord.x][from_coord.y] != self:
+        elif board[from_coord.x][from_coord.y] != Character:
             return False
 
         elif board[to_coord.x][to_coord.y] is not None:

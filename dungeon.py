@@ -1,1 +1,2 @@
-pass
+class Dungeon:
+    pass
