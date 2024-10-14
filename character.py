@@ -119,17 +119,17 @@ class Character(ABC):
         if to_coord.x == from_coord.x and to_coord.y == from_coord.y:
             return False  # Checks if coords are different
 
-        elif board[from_coord.x][from_coord.y] != self:
-            return False  # Checks if self is at starting location
-
-        elif board[to_coord.x][to_coord.y] is not None:
-            return False  # Checks if end location is empty
-
-        elif not 0 <= from_coord.x < len(board) and 0 <= from_coord.y < len(board[0]):
+        if not 0 <= from_coord.x < len(board) and not 0 <= from_coord.y < len(board[0]):
             return False  # checking if starting coords are in bounds
 
-        elif not 0 <= to_coord.x < len(board) and 0 <= to_coord.y < len(board[0]):
+        if not 0 <= to_coord.x < len(board) and not 0 <= to_coord.y < len(board[0]):
             return False  # checking if ending location is in bounds
+
+        if board[from_coord.x][from_coord.y] != self:
+            return False  # Checks if self is at starting location
+
+        if board[to_coord.x][to_coord.y] is not None:
+            return False  # Checks if end location is empty
 
         return True
 
