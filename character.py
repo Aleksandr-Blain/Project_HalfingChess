@@ -158,7 +158,7 @@ class Character(ABC):
 
     @abstractmethod
     # TODO this is a mess
-    def calculate_dice(self, attack=True, lst: list = [], *args, **kwargs) -> int:
+    def calculate_dice(self, target: Character, attack=True, lst: list = [],gob: list = [],  *args, **kwargs) -> int:
         successful_rolls = 0
         if attack:
             comparater = 4
@@ -175,7 +175,7 @@ class Character(ABC):
 
         for i in range(len(number_rolls)):
             if number_rolls[i] >= comparater:
-                successful_rolls += i
+                successful_rolls += 1
         return successful_rolls
 
     @abstractmethod

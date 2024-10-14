@@ -3,29 +3,48 @@ import random
 
 
 class Dungeon:
-    def __init__(self, height: int, width: int, villains: List[Villain]=[]):
-        self.__height = height
-        self.__width = width
-        self.__villains = self.generate_villains
+    def __init__(self, height: int, width: int, villains: List[Villain] = []):
+        if not (4 <= height <= 12):
+            raise ValueError("Height must be between 4 and 12")
+        if not (4 <= width <= 12):
+            raise ValueError("Width must be between 4 and 12")
 
-    def generate_villains(self):
-        num_villains = random.randint(1, max(self.__height, self.__width))
-        necromance = False
-        villain_lst = list()
-
-        for i in range(num_villains):
-            percentage = random.randint(1, 10)
-            if percentage <= 5:
-                villain_lst.append(Goblin())
-            elif 6 <= num_villains <= 8:
-                villain_lst.append(Skeleton())
-            else:
-                if necromance:
-                    villain_lst.append(Skeleton())
-                else:
-                    villain_lst.append(Necromancer())
-                    necromance = True
-            return villain_lst
+        self.__height == height
+        self.__width == width
 
 
+        @property
+        def height(self):
+            return self.__height
 
+        @property
+        def width(self):
+            return self.__width
+
+        @property
+        def board(self):
+            return self.__board
+
+        @board.setter
+        def board(self, value):
+            self.__board = value
+
+        @property
+        def player(self):
+            return self.__player
+
+        @property
+        def heroes(self):
+            return self.__heroes
+
+        @heroes.setter
+        def heroes(self, value):
+            self.__heroes = value
+
+        @property
+        def villains(self):
+            return self.__villains
+
+        @villains.setter
+        def villains(self, value):
+            self.__villains = value
