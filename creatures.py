@@ -6,12 +6,7 @@ class Villain(Character):
         super().__init__(Player.VILLAIN)
 
     def is_valid_move(self, from_coord: Coord, to_coord: Coord, board: List[List[Union[None, Character]]]) -> bool:
-        if from_coord.x != to_coord.x or from_coord.y != to_coord.y:
-            return False
-        if board[to_coord.x][to_coord.y] is not None:
-            return False
-        else:
-            return super().is_valid_move(from_coord, to_coord, board)
+        return super().is_valid_move(from_coord, to_coord, board)
 
     def is_valid_attack(self, from_coord: Coord, to_coord: Coord, board: List[List[Union[None, Character]]]) -> bool:
         return super().is_valid_attack(from_coord, to_coord, board)
@@ -32,6 +27,7 @@ class Goblin(Villain):
 
 
 class Skeleton(Villain):
+# TODO am i setting and utilizing super correctly
     def __init__(self):
         super().__init__()
         self.__health = 2
@@ -77,6 +73,7 @@ class Warrior(Hero):
         self.__combat = [2, 4]
 
     def calculate_dice(self, target: Character, attack=True, lst: list = [], gob: list = []):
+        # TODO how to edit calculate dice
         if not isinstance(target, Goblin):
             super().calculate_dice(attack, lst)
         else:
@@ -95,8 +92,9 @@ class Mage(Hero):
         self.__move = 2
 
     def deal_damage(self, target: Character, damage: int, *args, **kwargs) -> None:
-        super().deal_damage(target, damage, *args, **kwargs)
         damage += 1
+        super().deal_damage(target, damage, *args, **kwargs)
+
 
 
 class Paladin(Hero):
@@ -111,15 +109,17 @@ class Paladin(Hero):
         return self.__heal
 
     @heal.setter
-    def heal(self, new_amnt):
-        self.__heal = new_amnt
+    def heal(self, v):
+        if v:
+            self.__heal = True
 
 
     # TODO- How to check if something is in range or not
     def revive(self, target: Character):
+        if self.__heal:
+            target.temp_health = target.health // 2
+            self.__heal = False
 
-        target.temp_health -= self.health // 2
-        pass
 
 
 class Ranger(Hero):
