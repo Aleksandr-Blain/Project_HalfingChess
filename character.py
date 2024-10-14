@@ -152,6 +152,7 @@ class Character(ABC):
             return False  # Checks if end location is not empty
 
         return True
+    #this is 19
 
 
 
