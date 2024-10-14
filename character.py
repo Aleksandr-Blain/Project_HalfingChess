@@ -119,10 +119,10 @@ class Character(ABC):
         if to_coord.x == from_coord.x and to_coord.y == from_coord.y:
             return False  # Checks if coords are different
 
-        if not (0 <= from_coord.x < len(board)) or (0 <= from_coord.y < len(board[0])):
+        if not (0 <= from_coord.x < len(board)) or not (0 <= from_coord.y < len(board[0])):
             return False  # checking if starting coords are in bounds
 
-        if not (0 <= to_coord.x < len(board)) or (0 <= to_coord.y < len(board[0])):
+        if not (0 <= to_coord.x < len(board)) or not (0 <= to_coord.y < len(board[0])):
             return False  # checking if ending location is in bounds
 
         if board[from_coord.x][from_coord.y] != self:
