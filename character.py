@@ -167,14 +167,15 @@ class Character(ABC):
             comparater = 3
             number_dice = self.__defense
 
-        if lst:
-            number_rolls = lst[:number_dice]
+        if len(lst) > 0:
+            number_rolls = lst
         else:
+            number_rolls = []
             for i in range(number_dice):
-                number_rolls = randint(1, 6)
+                number_rolls.append(randint(1, 6))
 
         for i in range(len(number_rolls)):
-            if number_rolls[i] >= comparater:
+            if number_rolls[i] > comparater:
                 successful_rolls += 1
         return successful_rolls
 

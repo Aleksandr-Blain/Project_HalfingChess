@@ -1,5 +1,4 @@
-from random import Random
-
+from random import randint, seed
 from character import *
 from abc import ABC, abstractmethod
 
@@ -87,21 +86,24 @@ class Warrior(Hero):
         self.combat = [2, 4]
 
     def calculate_dice(self, target: Character, attack=True, lst: list = [], gob: list = []):
-        # TODO how to edit calculate dice
-        if lst:
-            dice_rolls = lst
-        else:
+        atck = super().calculate_dice(target, attack, lst)
+
+        if gob and attack == True:
             dice_rolls = []
             for _ in range(2):
-                dice_rolls.append(random.randint(1, 6))
+                dice_rolls.append(randint(1, 6))
+        else:
+            if attack == True:
+                gob.extend([randint(1, 6) for _ in range(2)])
 
-        if isinstance(target, Goblin):
-            dice_rolls[0] += 2
+        count = 0
+        for i in gob:
+            if i > 4:
+                count += 1
 
-        if not gob:
-            gob.extend([random.randint(1, 6) for _ in range(2)])
+        atck += count
 
-        return dice_rolls + gob
+        return atck
 
 
 class Mage(Hero):
@@ -141,29 +143,35 @@ class Paladin(Hero):
 
 
 class Ranger(Hero):
-    class Ranger(Hero):
-        def __init__(self):
-            super().__init__()
-            self.health = 7
-            self.temp_health = 7
-            self.attack = 2
-            self.range = 3
+    def __init__(self):
+        super().__init__()
+        self.range = 3
 
-        def deal_damage(self, target: Character, damage: int, *args, **kwargs) -> None:
-            if target is Skeleton:
-                damage -= 1
-            if damage < 0:
-                damage = 0
-            target.temp_health -= damage
-
-        def calculate_dice(self, attack=True, lst: list = [], gob: list = [], *args, **kwargs):
-            pass
+    def deal_damage(self, target: Character, damage: int) -> None:
+        if isinstance(target, Skeleton):
+            super().deal_damage(target,damage -1)
+        else:
+            super().deal_damage(target, damage)
 
 
 
 
 
 
+
+
+
+
+if __name__ == "__main__":
+    w = Warrior()
+    g = Goblin()
+    s = Skeleton()
+    seed(7)
+    for i in range(10):
+        print(randint(1,6))
+    seed(7)
+    print(w.calculate_dice(g,True))
+    print(w.calculate_dice(s, True))
 
 
 
